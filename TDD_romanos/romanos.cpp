@@ -12,6 +12,16 @@ int romanos_para_decimal(char const * num_romano)
     int n = strlen(num_romano);
 
     for(int i = 0; i < n; i++) {
+        // Verifica se o algarismo romano é válido
+        if(simbolos.find(num_romano[i]) == simbolos.end()) {
+            return -1; // Algarismo romano inválido
+        }
+
+        // Verifica se o caractere é repetido mais de três vezes seguidas
+        if(i < n - 2 && num_romano[i] == num_romano[i+1] && num_romano[i] == num_romano[i+2]) {
+            return -1; // Algarismo romano inválido
+        }
+
         int valor_atual = simbolos[num_romano[i]];
 
         // Verifica se o próximo símbolo é de valor maior ou menor
