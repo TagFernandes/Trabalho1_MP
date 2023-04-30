@@ -11,6 +11,10 @@ int romanos_para_decimal(char const * num_romano)
     int result = 0;
     int n = strlen(num_romano);
 
+    if (strstr(num_romano, "VV") != nullptr) { return -1; }
+    else if (strstr(num_romano, "LL") != nullptr) { return -1; }
+    else if (strstr(num_romano, "DD") != nullptr) { return -1; }
+    
     for(int i = 0; i < n; i++) {
         // Verifica se o algarismo romano é válido
         if(simbolos.find(num_romano[i]) == simbolos.end()) {
@@ -18,7 +22,7 @@ int romanos_para_decimal(char const * num_romano)
         }
 
         // Verifica se o caractere é repetido mais de três vezes seguidas
-        if(i < n - 2 && num_romano[i] == num_romano[i+1] && num_romano[i] == num_romano[i+2]) {
+        if(i < n - 3 && num_romano[i] == num_romano[i+1] && num_romano[i] == num_romano[i+2] && num_romano[i] == num_romano[i+3]) {
             return -1; // Algarismo romano inválido
         }
 

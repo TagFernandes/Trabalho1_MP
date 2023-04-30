@@ -20,6 +20,9 @@ TEST_CASE( "Numeros romanos - algarismos inválidos", "[romanos]" ) {
     REQUIRE( romanos_para_decimal("i") == -1 );
     
     REQUIRE( romanos_para_decimal("VIIII") == -1 );
+    REQUIRE( romanos_para_decimal("VV") == -1 );
+    REQUIRE( romanos_para_decimal("LL") == -1 );
+    REQUIRE( romanos_para_decimal("DD") == -1 );
 
     
 }
