@@ -1,0 +1,65 @@
+        -:    0:Source:romanos.cpp
+        -:    1:// Copyright (c) 2023, Thiago Fernandes
+        -:    2:
+        -:    3:#include "romanos.hpp"
+        -:    4:#include <iostream>
+        -:    5:#include <unordered_map>
+        -:    6:#include <cstring>
+        -:    7:
+        -:    8:using std::unordered_map;
+        -:    9:using std::strlen;
+        -:   10:
+     3013:   11:int romanos_para_decimal(char const * num_romano) {
+        -:   12:    unordered_map<char, int> simbolos = {{'I', 1}, {'V', 5}, {'X', 10},
+     3013:   13:    {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};
+     3013:   14:    int result = 0;
+     3013:   15:    int n = strlen(num_romano);
+        -:   16:
+     3013:   17:    if (strstr(num_romano, "VV") != nullptr)
+        2:   18:    { return -1; }
+     3011:   19:    else if (strstr(num_romano, "LL") != nullptr)
+        1:   20:    { return -1; }
+     3010:   21:    else if (strstr(num_romano, "DD") != nullptr)
+        1:   22:    { return -1; }
+        -:   23:
+    24018:   24:    for (int i = 0; i < n; i++) {
+        -:   25:        // Verifica se o algarismo romano é válido
+    21015:   26:        if (simbolos.find(num_romano[i]) == simbolos.end()) {
+        3:   27:            return -1;   // Algarismo romano inválido
+        -:   28:        }
+        -:   29:
+        -:   30:        // Verifica se o caractere é repetido mais de três vezes seguidas
+    21012:   31:        if (i < n - 3 && num_romano[i] == num_romano[i+1] && num_romano[i] ==
+     4109:   32:        num_romano[i+2] && num_romano[i] == num_romano[i+3]) {
+        2:   33:            return -1;    // Algarismo romano inválido
+        -:   34:        }
+        -:   35:
+    21010:   36:        int valor_atual = simbolos[num_romano[i]];
+        -:   37:
+        -:   38:        // Verifica se o próximo símbolo é de valor maior ou menor
+    21010:   39:        if (i < n - 1 && simbolos[num_romano[i+1]] > valor_atual) {
+        -:   40:            // Verifica se a combinação é válida
+     1801:   41:            if (valor_atual == 1 && (num_romano[i+1] ==
+      300:   42:                'V' || num_romano[i+1] == 'X')) {
+      600:   43:                result -= valor_atual;
+        -:   44:
+     1201:   45:            } else if (valor_atual == 10 && (num_romano[i+1] ==
+      300:   46:                       'L' || num_romano[i+1] == 'C')) {
+      600:   47:                result -= valor_atual;
+        -:   48:
+      601:   49:            } else if (valor_atual == 100 && (num_romano[i+1] ==
+      300:   50:                      'D' || num_romano[i+1] == 'M')) {
+      600:   51:                result -= valor_atual;
+        -:   52:
+        -:   53:            } else {
+        1:   54:                return -1;    // Algarismo romano inválido
+        -:   55:            }
+        -:   56:
+        -:   57:        } else {
+    19209:   58:            result += valor_atual;
+        -:   59:        }
+        -:   60:    }
+        -:   61:
+     3003:   62:    return result;
+     3013:   63:}
+        -:   64:
