@@ -20,24 +20,24 @@ int romanToDecimal(const char* romanNumeral) {
         {'D', 500},
         {'M', 1000}
     };
-    
+
     int result = 0;
     int previousValue = 0;
-    
+
     // Itera sobre cada caractere do numeral romano
     for (int i = 0; romanNumeral[i] != '\0'; i++) {
         int currentValue = romanValues[romanNumeral[i]];
-        
-        // Se o valor do caractere atual é menor que o valor do caractere anterior,
+
+        // Caso caracter atual < anterior
         // então subtraímos o valor atual do resultado (ex: IV = 4)
         if (currentValue > previousValue) {
             result -= 2 * previousValue;
         }
-        
+
         result += currentValue;
         previousValue = currentValue;
     }
-    
+
     return result;
 }
 
@@ -62,10 +62,10 @@ char const* decimal_to_Romano(int numero) {
 }
 
 int romanos_para_decimal(char const * num_romano) {
-    if (strcmp(decimal_to_Romano(romanToDecimal(num_romano)), num_romano) == 0) {
-    	return romanToDecimal(num_romano);
-    }
-    else {
-    	return -1;
+    if (strcmp(decimal_to_Romano(romanToDecimal(num_romano)),
+    num_romano) == 0) {
+        return romanToDecimal(num_romano);
+    } else {
+        return -1;
     }
 }

@@ -51,4 +51,5 @@ TEST_CASE("Numeros romanos - algarismos invalidos", "[romanos]") {
     REQUIRE(romanos_para_decimal("XVV") == -1);
     REQUIRE(romanos_para_decimal("VIIII") == -1);
     REQUIRE(romanos_para_decimal("XIXI") == -1);
+    REQUIRE(romanos_para_decimal("VIVI") == -1);
 }
