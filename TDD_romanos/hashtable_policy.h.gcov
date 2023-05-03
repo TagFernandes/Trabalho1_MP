@@ -91,9 +91,9 @@
         -:   90:  {
         -:   91:    template<typename _Tp>
         -:   92:      auto
-   124396:   93:      operator()(_Tp&& __x) const noexcept
+   137080:   93:      operator()(_Tp&& __x) const noexcept
         -:   94:      -> decltype(std::get<0>(std::forward<_Tp>(__x)))
-   124396:   95:      { return std::get<0>(std::forward<_Tp>(__x)); }
+   137080:   95:      { return std::get<0>(std::forward<_Tp>(__x)); }
         -:   96:  };
         -:   97:
         -:   98:  template<typename _NodeAlloc>
@@ -160,13 +160,13 @@
         -:  159:      using __node_type = typename __hashtable_alloc::__node_type;
         -:  160:
         -:  161:    public:
-    21091:  162:      _AllocNode(__hashtable_alloc& __h)
-    21091:  163:      : _M_h(__h) { }
+    42119:  162:      _AllocNode(__hashtable_alloc& __h)
+    42119:  163:      : _M_h(__h) { }
         -:  164:
         -:  165:      template<typename _Arg>
         -:  166:	__node_type*
-    21091:  167:	operator()(_Arg&& __arg) const
-    21091:  168:	{ return _M_h._M_allocate_node(std::forward<_Arg>(__arg)); }
+    42119:  167:	operator()(_Arg&& __arg) const
+    42119:  168:	{ return _M_h._M_allocate_node(std::forward<_Arg>(__arg)); }
         -:  169:
         -:  170:    private:
         -:  171:      __hashtable_alloc& _M_h;
@@ -217,7 +217,7 @@
         -:  216:  {
         -:  217:    _Hash_node_base* _M_nxt;
         -:  218:
-    24104:  219:    _Hash_node_base() noexcept : _M_nxt() { }
+    48139:  219:    _Hash_node_base() noexcept : _M_nxt() { }
         -:  220:
         -:  221:    _Hash_node_base(_Hash_node_base* __next) noexcept : _M_nxt(__next) { }
         -:  222:  };
@@ -235,20 +235,20 @@
         -:  234:      __gnu_cxx::__aligned_buffer<_Value> _M_storage;
         -:  235:
         -:  236:      _Value*
-    81199:  237:      _M_valptr() noexcept
-    81199:  238:      { return _M_storage._M_ptr(); }
+   126287:  237:      _M_valptr() noexcept
+   126287:  238:      { return _M_storage._M_ptr(); }
         -:  239:
         -:  240:      const _Value*
-   103305:  241:      _M_valptr() const noexcept
-   103305:  242:      { return _M_storage._M_ptr(); }
+    94961:  241:      _M_valptr() const noexcept
+    94961:  242:      { return _M_storage._M_ptr(); }
         -:  243:
         -:  244:      _Value&
-    39017:  245:      _M_v() noexcept
-    39017:  246:      { return *_M_valptr(); }
+    42040:  245:      _M_v() noexcept
+    42040:  246:      { return *_M_valptr(); }
         -:  247:
         -:  248:      const _Value&
-   103305:  249:      _M_v() const noexcept
-   103305:  250:      { return *_M_valptr(); }
+    94961:  249:      _M_v() const noexcept
+    94961:  250:      { return *_M_valptr(); }
         -:  251:    };
         -:  252:
         -:  253:  /**
@@ -280,8 +280,8 @@
         -:  279:    , _Hash_node_value<_Value, _Cache_hash_code>
         -:  280:    {
         -:  281:      _Hash_node*
-    61354:  282:      _M_next() const noexcept
-    61354:  283:      { return static_cast<_Hash_node*>(this->_M_nxt); }
+    89026:  282:      _M_next() const noexcept
+    89026:  283:      { return static_cast<_Hash_node*>(this->_M_nxt); }
         -:  284:    };
         -:  285:
         -:  286:  /// Base class for node iterators.
@@ -293,17 +293,17 @@
         -:  292:      __node_type* _M_cur;
         -:  293:
         -:  294:      _Node_iterator_base() : _M_cur(nullptr) { }
-    63121:  295:      _Node_iterator_base(__node_type* __p) noexcept
-    63121:  296:      : _M_cur(__p) { }
+    42122:  295:      _Node_iterator_base(__node_type* __p) noexcept
+    42122:  296:      : _M_cur(__p) { }
         -:  297:
         -:  298:      void
         -:  299:      _M_incr() noexcept
         -:  300:      { _M_cur = _M_cur->_M_next(); }
         -:  301:
         -:  302:      friend bool
-    21015:  303:      operator==(const _Node_iterator_base& __x, const _Node_iterator_base& __y)
+        -:  303:      operator==(const _Node_iterator_base& __x, const _Node_iterator_base& __y)
         -:  304:      noexcept
-    21015:  305:      { return __x._M_cur == __y._M_cur; }
+        -:  305:      { return __x._M_cur == __y._M_cur; }
         -:  306:
         -:  307:#if __cpp_impl_three_way_comparison < 201907L
         -:  308:      friend bool
@@ -336,16 +336,16 @@
         -:  335:      _Node_iterator() = default;
         -:  336:
         -:  337:      explicit
-    63121:  338:      _Node_iterator(__node_type* __p) noexcept
-    63121:  339:      : __base_type(__p) { }
+    42122:  338:      _Node_iterator(__node_type* __p) noexcept
+    42122:  339:      : __base_type(__p) { }
         -:  340:
         -:  341:      reference
         -:  342:      operator*() const noexcept
         -:  343:      { return this->_M_cur->_M_v(); }
         -:  344:
         -:  345:      pointer
-    #####:  346:      operator->() const noexcept
-    #####:  347:      { return this->_M_cur->_M_valptr(); }
+        3:  346:      operator->() const noexcept
+        3:  347:      { return this->_M_cur->_M_valptr(); }
         -:  348:
         -:  349:      _Node_iterator&
         -:  350:      operator++() noexcept
@@ -426,9 +426,9 @@
         -:  425:    typedef std::size_t result_type;
         -:  426:
         -:  427:    result_type
-   111800:  428:    operator()(first_argument_type __num,
+   128675:  428:    operator()(first_argument_type __num,
         -:  429:	       second_argument_type __den) const noexcept
-   111800:  430:    { return __num % __den; }
+   128675:  430:    { return __num % __den; }
         -:  431:  };
         -:  432:
         -:  433:  /// Default ranged hash function H.  In principle it should be a
@@ -444,8 +444,8 @@
         -:  443:  {
         -:  444:    using __has_load_factor = true_type;
         -:  445:
-     3013:  446:    _Prime_rehash_policy(float __z = 1.0) noexcept
-     3013:  447:    : _M_max_load_factor(__z), _M_next_resize(0) { }
+     6017:  446:    _Prime_rehash_policy(float __z = 1.0) noexcept
+     6017:  447:    : _M_max_load_factor(__z), _M_next_resize(0) { }
         -:  448:
         -:  449:    float
         -:  450:    max_load_factor() const noexcept
@@ -471,8 +471,8 @@
         -:  470:    typedef std::size_t _State;
         -:  471:
         -:  472:    _State
-    21091:  473:    _M_state() const
-    21091:  474:    { return _M_next_resize; }
+    42122:  473:    _M_state() const
+    42122:  474:    { return _M_next_resize; }
         -:  475:
         -:  476:    void
         -:  477:    _M_reset() noexcept
@@ -694,28 +694,28 @@
         -:  693:	   typename _Hash, typename _RangeHash, typename _Unused,
         -:  694:	   typename _RehashPolicy, typename _Traits>
         -:  695:    auto
-    39017:  696:    _Map_base<_Key, _Pair, _Alloc, _Select1st, _Equal,
+    42043:  696:    _Map_base<_Key, _Pair, _Alloc, _Select1st, _Equal,
         -:  697:	      _Hash, _RangeHash, _Unused, _RehashPolicy, _Traits, true>::
         -:  698:    operator[](const key_type& __k)
         -:  699:    -> mapped_type&
         -:  700:    {
-    39017:  701:      __hashtable* __h = static_cast<__hashtable*>(this);
-    39017:  702:      __hash_code __code = __h->_M_hash_code(__k);
-    39017:  703:      std::size_t __bkt = __h->_M_bucket_index(__code);
-    39017:  704:      if (auto __node = __h->_M_find_node(__bkt, __k, __code))
-    39017:  705:	return __node->_M_v().second;
+    42043:  701:      __hashtable* __h = static_cast<__hashtable*>(this);
+    42043:  702:      __hash_code __code = __h->_M_hash_code(__k);
+    42043:  703:      std::size_t __bkt = __h->_M_bucket_index(__code);
+    42043:  704:      if (auto __node = __h->_M_find_node(__bkt, __k, __code))
+    42040:  705:	return __node->_M_v().second;
         -:  706:
-    #####:  707:      typename __hashtable::_Scoped_node __node {
+        3:  707:      typename __hashtable::_Scoped_node __node {
         -:  708:	__h,
         -:  709:	std::piecewise_construct,
-    #####:  710:	std::tuple<const key_type&>(__k),
+        3:  710:	std::tuple<const key_type&>(__k),
     #####:  711:	std::tuple<>()
         -:  712:      };
         -:  713:      auto __pos
-    #####:  714:	= __h->_M_insert_unique_node(__bkt, __code, __node._M_node);
-    #####:  715:      __node._M_node = nullptr;
-    #####:  716:      return __pos->second;
-    #####:  717:    }
+        3:  714:	= __h->_M_insert_unique_node(__bkt, __code, __node._M_node);
+        3:  715:      __node._M_node = nullptr;
+        3:  716:      return __pos->second;
+        3:  717:    }
         -:  718:
         -:  719:  template<typename _Key, typename _Pair, typename _Alloc, typename _Equal,
         -:  720:	   typename _Hash, typename _RangeHash, typename _Unused,
@@ -813,8 +813,8 @@
         -:  812:      using __node_gen_type = _AllocNode<__node_alloc_type>;
         -:  813:
         -:  814:      __hashtable&
-    21091:  815:      _M_conjure_hashtable()
-    21091:  816:      { return *(static_cast<__hashtable*>(this)); }
+    42119:  815:      _M_conjure_hashtable()
+    42119:  816:      { return *(static_cast<__hashtable*>(this)); }
         -:  817:
         -:  818:      template<typename _InputIterator, typename _NodeGetter>
         -:  819:	void
@@ -838,11 +838,11 @@
         -:  837:						     iterator>::type;
         -:  838:
         -:  839:      __ireturn_type
-    21091:  840:      insert(const value_type& __v)
+    42119:  840:      insert(const value_type& __v)
         -:  841:      {
-    21091:  842:	__hashtable& __h = _M_conjure_hashtable();
-    21091:  843:	__node_gen_type __node_gen(__h);
-    42182:  844:	return __h._M_insert(__v, __node_gen, __unique_keys{});
+    42119:  842:	__hashtable& __h = _M_conjure_hashtable();
+    42119:  843:	__node_gen_type __node_gen(__h);
+    84238:  844:	return __h._M_insert(__v, __node_gen, __unique_keys{});
         -:  845:      }
         -:  846:
         -:  847:      iterator
@@ -1128,35 +1128,35 @@
         -: 1127:      _Hashtable_ebo_helper() noexcept(noexcept(_Tp())) : _Tp() { }
         -: 1128:
         -: 1129:      template<typename _OtherTp>
-     9039: 1130:	_Hashtable_ebo_helper(_OtherTp&& __tp)
-     9039: 1131:	: _Tp(std::forward<_OtherTp>(__tp))
-     9039: 1132:	{ }
+    18051: 1130:	_Hashtable_ebo_helper(_OtherTp&& __tp)
+    18051: 1131:	: _Tp(std::forward<_OtherTp>(__tp))
+    18051: 1132:	{ }
 ------------------
 _ZNSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EEC2IRKS2_EEOT_:
-     3013: 1130:	_Hashtable_ebo_helper(_OtherTp&& __tp)
-     3013: 1131:	: _Tp(std::forward<_OtherTp>(__tp))
-     3013: 1132:	{ }
+     6017: 1130:	_Hashtable_ebo_helper(_OtherTp&& __tp)
+     6017: 1131:	: _Tp(std::forward<_OtherTp>(__tp))
+     6017: 1132:	{ }
 ------------------
 _ZNSt8__detail21_Hashtable_ebo_helperILi0ESaINS_10_Hash_nodeISt4pairIKciELb0EEEELb1EEC2IS6_EEOT_:
-     3013: 1130:	_Hashtable_ebo_helper(_OtherTp&& __tp)
-     3013: 1131:	: _Tp(std::forward<_OtherTp>(__tp))
-     3013: 1132:	{ }
+     6017: 1130:	_Hashtable_ebo_helper(_OtherTp&& __tp)
+     6017: 1131:	: _Tp(std::forward<_OtherTp>(__tp))
+     6017: 1132:	{ }
 ------------------
 _ZNSt8__detail21_Hashtable_ebo_helperILi0ESt8equal_toIcELb1EEC2IRKS2_EEOT_:
-     3013: 1130:	_Hashtable_ebo_helper(_OtherTp&& __tp)
-     3013: 1131:	: _Tp(std::forward<_OtherTp>(__tp))
-     3013: 1132:	{ }
+     6017: 1130:	_Hashtable_ebo_helper(_OtherTp&& __tp)
+     6017: 1131:	: _Tp(std::forward<_OtherTp>(__tp))
+     6017: 1132:	{ }
 ------------------
         -: 1133:
-   184428: 1134:      const _Tp& _M_cget() const { return static_cast<const _Tp&>(*this); }
+   179123: 1134:      const _Tp& _M_cget() const { return static_cast<const _Tp&>(*this); }
 ------------------
 _ZNKSt8__detail21_Hashtable_ebo_helperILi0ESt8equal_toIcELb1EE7_M_cgetEv:
-    75641: 1134:      const _Tp& _M_cget() const { return static_cast<const _Tp&>(*this); }
+    56465: 1134:      const _Tp& _M_cget() const { return static_cast<const _Tp&>(*this); }
 ------------------
 _ZNKSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EE7_M_cgetEv:
-   108787: 1134:      const _Tp& _M_cget() const { return static_cast<const _Tp&>(*this); }
+   122658: 1134:      const _Tp& _M_cget() const { return static_cast<const _Tp&>(*this); }
 ------------------
-    90390: 1135:      _Tp& _M_get() { return static_cast<_Tp&>(*this); }
+   180522: 1135:      _Tp& _M_get() { return static_cast<_Tp&>(*this); }
         -: 1136:    };
         -: 1137:
         -: 1138:  /// Specialization not using EBO.
@@ -1233,14 +1233,14 @@ _ZNKSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EE7_M_cgetEv:
         -: 1209:      // default constructor.
         -: 1210:      _Hash_code_base() = default;
         -: 1211:
-     3013: 1212:      _Hash_code_base(const _Hash& __hash) : __ebo_hash(__hash) { }
+     6017: 1212:      _Hash_code_base(const _Hash& __hash) : __ebo_hash(__hash) { }
         -: 1213:
         -: 1214:      __hash_code
-   108787: 1215:      _M_hash_code(const _Key& __k) const
+   122658: 1215:      _M_hash_code(const _Key& __k) const
         -: 1216:      {
         -: 1217:	static_assert(__is_invocable<const _Hash&, const _Key&>{},
         -: 1218:	    "hash function must be invocable with an argument of key type");
-   108787: 1219:	return _M_hash()(__k);
+   122658: 1219:	return _M_hash()(__k);
         -: 1220:      }
         -: 1221:
         -: 1222:      template<typename _Kt>
@@ -1253,18 +1253,18 @@ _ZNKSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EE7_M_cgetEv:
         -: 1229:	}
         -: 1230:
         -: 1231:      std::size_t
-    84136: 1232:      _M_bucket_index(__hash_code __c, std::size_t __bkt_count) const
-    84136: 1233:      { return _RangeHash{}(__c, __bkt_count); }
+    90179: 1232:      _M_bucket_index(__hash_code __c, std::size_t __bkt_count) const
+    90179: 1233:      { return _RangeHash{}(__c, __bkt_count); }
         -: 1234:
         -: 1235:      std::size_t
-    27664: 1236:      _M_bucket_index(const _Hash_node_value<_Value, false>& __n,
+    38496: 1236:      _M_bucket_index(const _Hash_node_value<_Value, false>& __n,
         -: 1237:		      std::size_t __bkt_count) const
         -: 1238:	noexcept( noexcept(declval<const _Hash&>()(declval<const _Key&>()))
         -: 1239:		  && noexcept(declval<const _RangeHash&>()((__hash_code)0,
         -: 1240:							   (std::size_t)0)) )
         -: 1241:      {
-    55328: 1242:	return _RangeHash{}(_M_hash_code(_ExtractKey{}(__n._M_v())),
-    27664: 1243:			    __bkt_count);
+    76992: 1242:	return _RangeHash{}(_M_hash_code(_ExtractKey{}(__n._M_v())),
+    38496: 1243:			    __bkt_count);
         -: 1244:      }
         -: 1245:
         -: 1246:      std::size_t
@@ -1275,8 +1275,8 @@ _ZNKSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EE7_M_cgetEv:
         -: 1251:      { return _RangeHash{}(__n._M_hash_code, __bkt_count); }
         -: 1252:
         -: 1253:      void
-    21091: 1254:      _M_store_code(_Hash_node_code_cache<false>&, __hash_code) const
-    21091: 1255:      { }
+    42122: 1254:      _M_store_code(_Hash_node_code_cache<false>&, __hash_code) const
+    42122: 1255:      { }
         -: 1256:
         -: 1257:      void
         -: 1258:      _M_copy_code(_Hash_node_code_cache<false>&,
@@ -1297,7 +1297,7 @@ _ZNKSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EE7_M_cgetEv:
         -: 1273:      { std::swap(__ebo_hash::_M_get(), __x.__ebo_hash::_M_get()); }
         -: 1274:
         -: 1275:      const _Hash&
-   108787: 1276:      _M_hash() const { return __ebo_hash::_M_cget(); }
+   122658: 1276:      _M_hash() const { return __ebo_hash::_M_cget(); }
         -: 1277:    };
         -: 1278:
         -: 1279:  /// Partial specialization used when nodes contain a cached hash code.
@@ -1607,8 +1607,8 @@ _ZNKSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EE7_M_cgetEv:
         -: 1583:      using _EqualEBO = _Hashtable_ebo_helper<0, _Equal>;
         -: 1584:
         -: 1585:      static bool
-    75641: 1586:      _S_equals(__hash_code, const _Hash_node_code_cache<false>&)
-    75641: 1587:      { return true; }
+    56465: 1586:      _S_equals(__hash_code, const _Hash_node_code_cache<false>&)
+    56465: 1587:      { return true; }
         -: 1588:
         -: 1589:      static bool
         -: 1590:      _S_node_equals(const _Hash_node_code_cache<false>&,
@@ -1627,18 +1627,18 @@ _ZNKSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EE7_M_cgetEv:
         -: 1603:    protected:
         -: 1604:      _Hashtable_base() = default;
         -: 1605:
-     3013: 1606:      _Hashtable_base(const _Hash& __hash, const _Equal& __eq)
-     3013: 1607:      : __hash_code_base(__hash), _EqualEBO(__eq)
-     3013: 1608:      { }
+     6017: 1606:      _Hashtable_base(const _Hash& __hash, const _Equal& __eq)
+     6017: 1607:      : __hash_code_base(__hash), _EqualEBO(__eq)
+     6017: 1608:      { }
         -: 1609:
         -: 1610:      bool
-    75641: 1611:      _M_equals(const _Key& __k, __hash_code __c,
+    56465: 1611:      _M_equals(const _Key& __k, __hash_code __c,
         -: 1612:		const _Hash_node_value<_Value, __hash_cached::value>& __n) const
         -: 1613:      {
         -: 1614:	static_assert(__is_invocable<const _Equal&, const _Key&, const _Key&>{},
         -: 1615:	  "key equality predicate must be invocable with two arguments of "
         -: 1616:	  "key type");
-    75641: 1617:	return _S_equals(__c, __n) && _M_eq()(__k, _ExtractKey{}(__n._M_v()));
+    56465: 1617:	return _S_equals(__c, __n) && _M_eq()(__k, _ExtractKey{}(__n._M_v()));
         -: 1618:      }
         -: 1619:
         -: 1620:      template<typename _Kt>
@@ -1671,7 +1671,7 @@ _ZNKSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EE7_M_cgetEv:
         -: 1647:      }
         -: 1648:
         -: 1649:      const _Equal&
-    75641: 1650:      _M_eq() const { return _EqualEBO::_M_cget(); }
+    56465: 1650:      _M_eq() const { return _EqualEBO::_M_cget(); }
         -: 1651:    };
         -: 1652:
         -: 1653:  /**
@@ -1849,13 +1849,13 @@ _ZNKSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EE7_M_cgetEv:
         -: 1825:      _Hashtable_alloc(_Hashtable_alloc&&) = default;
         -: 1826:
         -: 1827:      template<typename _Alloc>
-     3013: 1828:	_Hashtable_alloc(_Alloc&& __a)
-     3013: 1829:	: __ebo_node_alloc(std::forward<_Alloc>(__a))
-     3013: 1830:	{ }
+     6017: 1828:	_Hashtable_alloc(_Alloc&& __a)
+     6017: 1829:	: __ebo_node_alloc(std::forward<_Alloc>(__a))
+     6017: 1830:	{ }
         -: 1831:
         -: 1832:      __node_alloc_type&
-    90390: 1833:      _M_node_allocator()
-    90390: 1834:      { return __ebo_node_alloc::_M_get(); }
+   180522: 1833:      _M_node_allocator()
+   180522: 1834:      { return __ebo_node_alloc::_M_get(); }
         -: 1835:
         -: 1836:      const __node_alloc_type&
         -: 1837:      _M_node_allocator() const
@@ -1891,18 +1891,18 @@ _ZNKSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EE7_M_cgetEv:
         -: 1867:  template<typename _NodeAlloc>
         -: 1868:    template<typename... _Args>
         -: 1869:      auto
-   21091*: 1870:      _Hashtable_alloc<_NodeAlloc>::_M_allocate_node(_Args&&... __args)
+    42122: 1870:      _Hashtable_alloc<_NodeAlloc>::_M_allocate_node(_Args&&... __args)
         -: 1871:      -> __node_ptr
         -: 1872:      {
-   21091*: 1873:	auto __nptr = __node_alloc_traits::allocate(_M_node_allocator(), 1);
-   21091*: 1874:	__node_ptr __n = std::__to_address(__nptr);
+    42122: 1873:	auto __nptr = __node_alloc_traits::allocate(_M_node_allocator(), 1);
+    42122: 1874:	__node_ptr __n = std::__to_address(__nptr);
         -: 1875:	__try
         -: 1876:	  {
-   21091*: 1877:	    ::new ((void*)__n) __node_type;
-   21091*: 1878:	    __node_alloc_traits::construct(_M_node_allocator(),
+    42122: 1877:	    ::new ((void*)__n) __node_type;
+    42122: 1878:	    __node_alloc_traits::construct(_M_node_allocator(),
         -: 1879:					   __n->_M_valptr(),
         -: 1880:					   std::forward<_Args>(__args)...);
-   21091*: 1881:	    return __n;
+    42122: 1881:	    return __n;
         -: 1882:	  }
     =====: 1883:	__catch(...)
         -: 1884:	  {
@@ -1912,18 +1912,18 @@ _ZNKSt8__detail21_Hashtable_ebo_helperILi1ESt4hashIcELb1EE7_M_cgetEv:
         -: 1888:      }
 ------------------
 _ZNSt8__detail16_Hashtable_allocISaINS_10_Hash_nodeISt4pairIKciELb0EEEEE16_M_allocate_nodeIJRKS4_EEEPS5_DpOT_:
-    21091: 1870:      _Hashtable_alloc<_NodeAlloc>::_M_allocate_node(_Args&&... __args)
+    42119: 1870:      _Hashtable_alloc<_NodeAlloc>::_M_allocate_node(_Args&&... __args)
         -: 1871:      -> __node_ptr
         -: 1872:      {
-    21091: 1873:	auto __nptr = __node_alloc_traits::allocate(_M_node_allocator(), 1);
-    21091: 1874:	__node_ptr __n = std::__to_address(__nptr);
+    42119: 1873:	auto __nptr = __node_alloc_traits::allocate(_M_node_allocator(), 1);
+    42119: 1874:	__node_ptr __n = std::__to_address(__nptr);
         -: 1875:	__try
         -: 1876:	  {
-    21091: 1877:	    ::new ((void*)__n) __node_type;
-    21091: 1878:	    __node_alloc_traits::construct(_M_node_allocator(),
+    42119: 1877:	    ::new ((void*)__n) __node_type;
+    42119: 1878:	    __node_alloc_traits::construct(_M_node_allocator(),
         -: 1879:					   __n->_M_valptr(),
         -: 1880:					   std::forward<_Args>(__args)...);
-    21091: 1881:	    return __n;
+    42119: 1881:	    return __n;
         -: 1882:	  }
     =====: 1883:	__catch(...)
         -: 1884:	  {
@@ -1933,18 +1933,18 @@ _ZNSt8__detail16_Hashtable_allocISaINS_10_Hash_nodeISt4pairIKciELb0EEEEE16_M_all
         -: 1888:      }
 ------------------
 _ZNSt8__detail16_Hashtable_allocISaINS_10_Hash_nodeISt4pairIKciELb0EEEEE16_M_allocate_nodeIJRKSt21piecewise_construct_tSt5tupleIJRS3_EESC_IJEEEEEPS5_DpOT_:
-    #####: 1870:      _Hashtable_alloc<_NodeAlloc>::_M_allocate_node(_Args&&... __args)
+        3: 1870:      _Hashtable_alloc<_NodeAlloc>::_M_allocate_node(_Args&&... __args)
         -: 1871:      -> __node_ptr
         -: 1872:      {
-    #####: 1873:	auto __nptr = __node_alloc_traits::allocate(_M_node_allocator(), 1);
-    #####: 1874:	__node_ptr __n = std::__to_address(__nptr);
+        3: 1873:	auto __nptr = __node_alloc_traits::allocate(_M_node_allocator(), 1);
+        3: 1874:	__node_ptr __n = std::__to_address(__nptr);
         -: 1875:	__try
         -: 1876:	  {
-    #####: 1877:	    ::new ((void*)__n) __node_type;
-    #####: 1878:	    __node_alloc_traits::construct(_M_node_allocator(),
+        3: 1877:	    ::new ((void*)__n) __node_type;
+        3: 1878:	    __node_alloc_traits::construct(_M_node_allocator(),
         -: 1879:					   __n->_M_valptr(),
         -: 1880:					   std::forward<_Args>(__args)...);
-    #####: 1881:	    return __n;
+        3: 1881:	    return __n;
         -: 1882:	  }
     =====: 1883:	__catch(...)
         -: 1884:	  {
@@ -1956,58 +1956,58 @@ _ZNSt8__detail16_Hashtable_allocISaINS_10_Hash_nodeISt4pairIKciELb0EEEEE16_M_all
         -: 1889:
         -: 1890:  template<typename _NodeAlloc>
         -: 1891:    void
-    21091: 1892:    _Hashtable_alloc<_NodeAlloc>::_M_deallocate_node(__node_ptr __n)
+    42122: 1892:    _Hashtable_alloc<_NodeAlloc>::_M_deallocate_node(__node_ptr __n)
         -: 1893:    {
-    21091: 1894:      __node_alloc_traits::destroy(_M_node_allocator(), __n->_M_valptr());
-    21091: 1895:      _M_deallocate_node_ptr(__n);
-    21091: 1896:    }
+    42122: 1894:      __node_alloc_traits::destroy(_M_node_allocator(), __n->_M_valptr());
+    42122: 1895:      _M_deallocate_node_ptr(__n);
+    42122: 1896:    }
         -: 1897:
         -: 1898:  template<typename _NodeAlloc>
         -: 1899:    void
-    21091: 1900:    _Hashtable_alloc<_NodeAlloc>::_M_deallocate_node_ptr(__node_ptr __n)
+    42122: 1900:    _Hashtable_alloc<_NodeAlloc>::_M_deallocate_node_ptr(__node_ptr __n)
         -: 1901:    {
         -: 1902:      typedef typename __node_alloc_traits::pointer _Ptr;
-    21091: 1903:      auto __ptr = std::pointer_traits<_Ptr>::pointer_to(*__n);
-    21091: 1904:      __n->~__node_type();
-    21091: 1905:      __node_alloc_traits::deallocate(_M_node_allocator(), __ptr, 1);
-    21091: 1906:    }
+    42122: 1903:      auto __ptr = std::pointer_traits<_Ptr>::pointer_to(*__n);
+    42122: 1904:      __n->~__node_type();
+    42122: 1905:      __node_alloc_traits::deallocate(_M_node_allocator(), __ptr, 1);
+    42122: 1906:    }
         -: 1907:
         -: 1908:  template<typename _NodeAlloc>
         -: 1909:    void
-     3013: 1910:    _Hashtable_alloc<_NodeAlloc>::_M_deallocate_nodes(__node_ptr __n)
+     6017: 1910:    _Hashtable_alloc<_NodeAlloc>::_M_deallocate_nodes(__node_ptr __n)
         -: 1911:    {
-    24104: 1912:      while (__n)
+    48139: 1912:      while (__n)
         -: 1913:	{
-    21091: 1914:	  __node_ptr __tmp = __n;
-    21091: 1915:	  __n = __n->_M_next();
-    21091: 1916:	  _M_deallocate_node(__tmp);
+    42122: 1914:	  __node_ptr __tmp = __n;
+    42122: 1915:	  __n = __n->_M_next();
+    42122: 1916:	  _M_deallocate_node(__tmp);
         -: 1917:	}
-     3013: 1918:    }
+     6017: 1918:    }
         -: 1919:
         -: 1920:  template<typename _NodeAlloc>
         -: 1921:    auto
-     3013: 1922:    _Hashtable_alloc<_NodeAlloc>::_M_allocate_buckets(std::size_t __bkt_count)
+     6017: 1922:    _Hashtable_alloc<_NodeAlloc>::_M_allocate_buckets(std::size_t __bkt_count)
         -: 1923:    -> __buckets_ptr
         -: 1924:    {
-     3013: 1925:      __buckets_alloc_type __alloc(_M_node_allocator());
+     6017: 1925:      __buckets_alloc_type __alloc(_M_node_allocator());
         -: 1926:
-     3013: 1927:      auto __ptr = __buckets_alloc_traits::allocate(__alloc, __bkt_count);
-     3013: 1928:      __buckets_ptr __p = std::__to_address(__ptr);
-     3013: 1929:      __builtin_memset(__p, 0, __bkt_count * sizeof(__node_base_ptr));
-     3013: 1930:      return __p;
-     3013: 1931:    }
+     6017: 1927:      auto __ptr = __buckets_alloc_traits::allocate(__alloc, __bkt_count);
+     6017: 1928:      __buckets_ptr __p = std::__to_address(__ptr);
+     6017: 1929:      __builtin_memset(__p, 0, __bkt_count * sizeof(__node_base_ptr));
+     6017: 1930:      return __p;
+     6017: 1931:    }
         -: 1932:
         -: 1933:  template<typename _NodeAlloc>
         -: 1934:    void
-     3013: 1935:    _Hashtable_alloc<_NodeAlloc>::
+     6017: 1935:    _Hashtable_alloc<_NodeAlloc>::
         -: 1936:    _M_deallocate_buckets(__buckets_ptr __bkts,
         -: 1937:			  std::size_t __bkt_count)
         -: 1938:    {
         -: 1939:      typedef typename __buckets_alloc_traits::pointer _Ptr;
-     3013: 1940:      auto __ptr = std::pointer_traits<_Ptr>::pointer_to(*__bkts);
-     3013: 1941:      __buckets_alloc_type __alloc(_M_node_allocator());
-     3013: 1942:      __buckets_alloc_traits::deallocate(__alloc, __ptr, __bkt_count);
-     3013: 1943:    }
+     6017: 1940:      auto __ptr = std::pointer_traits<_Ptr>::pointer_to(*__bkts);
+     6017: 1941:      __buckets_alloc_type __alloc(_M_node_allocator());
+     6017: 1942:      __buckets_alloc_traits::deallocate(__alloc, __ptr, __bkt_count);
+     6017: 1943:    }
         -: 1944:
         -: 1945: ///@} hashtable-detail
         -: 1946:} // namespace __detail

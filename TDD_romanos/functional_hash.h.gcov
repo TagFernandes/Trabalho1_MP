@@ -126,7 +126,7 @@
         -:  125:  _Cxx_hashtable_define_trivial_hash(bool)
         -:  126:
         -:  127:  /// Explicit specialization for char.
-   108787:  128:  _Cxx_hashtable_define_trivial_hash(char)
+   122658:  128:  _Cxx_hashtable_define_trivial_hash(char)
         -:  129:
         -:  130:  /// Explicit specialization for signed char.
         -:  131:  _Cxx_hashtable_define_trivial_hash(signed char)

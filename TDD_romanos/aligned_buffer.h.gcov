@@ -100,24 +100,24 @@
         -:   99:      __aligned_buffer(std::nullptr_t) { }
         -:  100:
         -:  101:      void*
-    81199:  102:      _M_addr() noexcept
+   126287:  102:      _M_addr() noexcept
         -:  103:      {
-    81199:  104:        return static_cast<void*>(&_M_storage);
+   126287:  104:        return static_cast<void*>(&_M_storage);
         -:  105:      }
         -:  106:
         -:  107:      const void*
-   103305:  108:      _M_addr() const noexcept
+    94961:  108:      _M_addr() const noexcept
         -:  109:      {
-   103305:  110:        return static_cast<const void*>(&_M_storage);
+    94961:  110:        return static_cast<const void*>(&_M_storage);
         -:  111:      }
         -:  112:
         -:  113:      _Tp*
-    81199:  114:      _M_ptr() noexcept
-    81199:  115:      { return static_cast<_Tp*>(_M_addr()); }
+   126287:  114:      _M_ptr() noexcept
+   126287:  115:      { return static_cast<_Tp*>(_M_addr()); }
         -:  116:
         -:  117:      const _Tp*
-   103305:  118:      _M_ptr() const noexcept
-   103305:  119:      { return static_cast<const _Tp*>(_M_addr()); }
+    94961:  118:      _M_ptr() const noexcept
+    94961:  119:      { return static_cast<const _Tp*>(_M_addr()); }
         -:  120:    };
         -:  121:#endif
         -:  122:

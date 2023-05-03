@@ -147,16 +147,16 @@
         -:  146:       *  @return @c addressof(__r)
         -:  147:      */
         -:  148:      static _GLIBCXX20_CONSTEXPR pointer
-    24104:  149:      pointer_to(__make_not_void<element_type>& __r) noexcept
-    24104:  150:      { return std::addressof(__r); }
+    48139:  149:      pointer_to(__make_not_void<element_type>& __r) noexcept
+    48139:  150:      { return std::addressof(__r); }
 ------------------
 _ZNSt14pointer_traitsIPNSt8__detail10_Hash_nodeISt4pairIKciELb0EEEE10pointer_toERS5_:
-    21091:  149:      pointer_to(__make_not_void<element_type>& __r) noexcept
-    21091:  150:      { return std::addressof(__r); }
+    42122:  149:      pointer_to(__make_not_void<element_type>& __r) noexcept
+    42122:  150:      { return std::addressof(__r); }
 ------------------
 _ZNSt14pointer_traitsIPPNSt8__detail15_Hash_node_baseEE10pointer_toERS2_:
-     3013:  149:      pointer_to(__make_not_void<element_type>& __r) noexcept
-     3013:  150:      { return std::addressof(__r); }
+     6017:  149:      pointer_to(__make_not_void<element_type>& __r) noexcept
+     6017:  150:      { return std::addressof(__r); }
 ------------------
         -:  151:    };
         -:  152:
@@ -166,10 +166,10 @@ _ZNSt14pointer_traitsIPPNSt8__detail15_Hash_node_baseEE10pointer_toERS2_:
         -:  156:
         -:  157:  template<typename _Tp>
         -:  158:    constexpr _Tp*
-    24104:  159:    __to_address(_Tp* __ptr) noexcept
+    48139:  159:    __to_address(_Tp* __ptr) noexcept
         -:  160:    {
         -:  161:      static_assert(!std::is_function<_Tp>::value, "not a function pointer");
-    24104:  162:      return __ptr;
+    48139:  162:      return __ptr;
         -:  163:    }
         -:  164:
         -:  165:#if __cplusplus <= 201703L

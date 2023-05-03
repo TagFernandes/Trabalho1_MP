@@ -154,11 +154,11 @@
         -:  153:      // _GLIBCXX_RESOLVE_LIB_DEFECTS
         -:  154:      // 3035. std::allocator's constructors should be constexpr
         -:  155:      _GLIBCXX20_CONSTEXPR
-     3013:  156:      allocator() _GLIBCXX_NOTHROW { }
+     6017:  156:      allocator() _GLIBCXX_NOTHROW { }
         -:  157:
         -:  158:      _GLIBCXX20_CONSTEXPR
-     3013:  159:      allocator(const allocator& __a) _GLIBCXX_NOTHROW
-     3013:  160:      : __allocator_base<_Tp>(__a) { }
+     6017:  159:      allocator(const allocator& __a) _GLIBCXX_NOTHROW
+     6017:  160:      : __allocator_base<_Tp>(__a) { }
         -:  161:
         -:  162:#if __cplusplus >= 201103L
         -:  163:      // Avoid implicit deprecation.
@@ -167,28 +167,28 @@
         -:  166:
         -:  167:      template<typename _Tp1>
         -:  168:	_GLIBCXX20_CONSTEXPR
-     9039:  169:	allocator(const allocator<_Tp1>&) _GLIBCXX_NOTHROW { }
+    18051:  169:	allocator(const allocator<_Tp1>&) _GLIBCXX_NOTHROW { }
 ------------------
 _ZNSaINSt8__detail10_Hash_nodeISt4pairIKciELb0EEEEC2IS3_EERKSaIT_E:
-     3013:  169:	allocator(const allocator<_Tp1>&) _GLIBCXX_NOTHROW { }
+     6017:  169:	allocator(const allocator<_Tp1>&) _GLIBCXX_NOTHROW { }
 ------------------
 _ZNSaIPNSt8__detail15_Hash_node_baseEEC2INS_10_Hash_nodeISt4pairIKciELb0EEEEERKSaIT_E:
-     6026:  169:	allocator(const allocator<_Tp1>&) _GLIBCXX_NOTHROW { }
+    12034:  169:	allocator(const allocator<_Tp1>&) _GLIBCXX_NOTHROW { }
 ------------------
         -:  170:
         -:  171:#if __cpp_constexpr_dynamic_alloc
         -:  172:      constexpr
         -:  173:#endif
-    15065:  174:      ~allocator() _GLIBCXX_NOTHROW { }
+    30085:  174:      ~allocator() _GLIBCXX_NOTHROW { }
 ------------------
 _ZNSaIPNSt8__detail15_Hash_node_baseEED2Ev:
-     6026:  174:      ~allocator() _GLIBCXX_NOTHROW { }
+    12034:  174:      ~allocator() _GLIBCXX_NOTHROW { }
 ------------------
 _ZNSaINSt8__detail10_Hash_nodeISt4pairIKciELb0EEEED2Ev:
-     6026:  174:      ~allocator() _GLIBCXX_NOTHROW { }
+    12034:  174:      ~allocator() _GLIBCXX_NOTHROW { }
 ------------------
 _ZNSaISt4pairIKciEED2Ev:
-     3013:  174:      ~allocator() _GLIBCXX_NOTHROW { }
+     6017:  174:      ~allocator() _GLIBCXX_NOTHROW { }
 ------------------
         -:  175:
         -:  176:#if __cplusplus > 201703L

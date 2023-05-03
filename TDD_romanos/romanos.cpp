@@ -4,61 +4,68 @@
 #include <iostream>
 #include <unordered_map>
 #include <cstring>
+#include <string>
 
 using std::unordered_map;
 using std::strlen;
 
-int romanos_para_decimal(char const * num_romano) {
-    unordered_map<char, int> simbolos = {{'I', 1}, {'V', 5}, {'X', 10},
-    {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};
+int romanToDecimal(const char* romanNumeral) {
+    // Tabela de valores para cada caractere romano
+    std::unordered_map<char, int> romanValues = {
+        {'I', 1},
+        {'V', 5},
+        {'X', 10},
+        {'L', 50},
+        {'C', 100},
+        {'D', 500},
+        {'M', 1000}
+    };
+    
     int result = 0;
-    int n = strlen(num_romano);
-
-    if (strstr(num_romano, "VV") != nullptr)
-    { return -1; }
-    else if (strstr(num_romano, "LL") != nullptr)
-    { return -1; }
-    else if (strstr(num_romano, "DD") != nullptr)
-    { return -1; }
-
-    for (int i = 0; i < n; i++) {
-        // Verifica se o algarismo romano é válido
-        if (simbolos.find(num_romano[i]) == simbolos.end()) {
-            return -1;   // Algarismo romano inválido
+    int previousValue = 0;
+    
+    // Itera sobre cada caractere do numeral romano
+    for (int i = 0; romanNumeral[i] != '\0'; i++) {
+        int currentValue = romanValues[romanNumeral[i]];
+        
+        // Se o valor do caractere atual é menor que o valor do caractere anterior,
+        // então subtraímos o valor atual do resultado (ex: IV = 4)
+        if (currentValue > previousValue) {
+            result -= 2 * previousValue;
         }
-
-        // Verifica se o caractere é repetido mais de três vezes seguidas
-        if (i < n - 3 && num_romano[i] == num_romano[i+1] && num_romano[i] ==
-        num_romano[i+2] && num_romano[i] == num_romano[i+3]) {
-            return -1;    // Algarismo romano inválido
-        }
-
-        int valor_atual = simbolos[num_romano[i]];
-
-        // Verifica se o próximo símbolo é de valor maior ou menor
-        if (i < n - 1 && simbolos[num_romano[i+1]] > valor_atual) {
-            // Verifica se a combinação é válida
-            if (valor_atual == 1 && (num_romano[i+1] ==
-                'V' || num_romano[i+1] == 'X')) {
-                result -= valor_atual;
-
-            } else if (valor_atual == 10 && (num_romano[i+1] ==
-                       'L' || num_romano[i+1] == 'C')) {
-                result -= valor_atual;
-
-            } else if (valor_atual == 100 && (num_romano[i+1] ==
-                      'D' || num_romano[i+1] == 'M')) {
-                result -= valor_atual;
-
-            } else {
-                return -1;    // Algarismo romano inválido
-            }
-
-        } else {
-            result += valor_atual;
-        }
+        
+        result += currentValue;
+        previousValue = currentValue;
     }
-
+    
     return result;
 }
 
+char const* decimal_to_Romano(int numero) {
+    static const char* const algarismos[13] =
+    {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+    static const int valores[13] =
+    {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    static char romano[16];
+
+    romano[0] = '\0';
+
+    // Loop pelos algarismos romanos e seus respectivos valores
+    for (int i = 0; i < 13; i++) {
+        while (numero >= valores[i]) {
+            int len = strlen(romano);
+            snprintf(romano+len, sizeof(romano)-len, "%s", algarismos[i]);
+            numero -= valores[i];
+        }
+    }
+    return romano;
+}
+
+int romanos_para_decimal(char const * num_romano) {
+    if (strcmp(decimal_to_Romano(romanToDecimal(num_romano)), num_romano) == 0) {
+    	return romanToDecimal(num_romano);
+    }
+    else {
+    	return -1;
+    }
+}

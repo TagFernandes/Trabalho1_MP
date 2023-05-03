@@ -225,13 +225,13 @@
         -:  224:       *  Create an %unordered_map consisting of copies of the elements in the
         -:  225:       *  list. This is linear in N (where N is @a __l.size()).
         -:  226:       */
-     3013:  227:      unordered_map(initializer_list<value_type> __l,
+     6017:  227:      unordered_map(initializer_list<value_type> __l,
         -:  228:		    size_type __n = 0,
         -:  229:		    const hasher& __hf = hasher(),
         -:  230:		    const key_equal& __eql = key_equal(),
         -:  231:		    const allocator_type& __a = allocator_type())
-     3013:  232:      : _M_h(__l, __n, __hf, __eql, __a)
-     3013:  233:      { }
+     6017:  232:      : _M_h(__l, __n, __hf, __eql, __a)
+     6017:  233:      { }
         -:  234:
         -:  235:      unordered_map(size_type __n, const allocator_type& __a)
         -:  236:      : unordered_map(__n, hasher(), key_equal(), __a)
@@ -345,8 +345,8 @@
         -:  344:       *  the %unordered_map.
         -:  345:       */
         -:  346:      iterator
-    21015:  347:      end() noexcept
-    21015:  348:      { return _M_h.end(); }
+        -:  347:      end() noexcept
+        -:  348:      { return _M_h.end(); }
         -:  349:
         -:  350:      ///@{
         -:  351:      /**
@@ -866,8 +866,8 @@
         -:  865:       *  past-the-end ( @c end() ) iterator.
         -:  866:       */
         -:  867:      iterator
-    21015:  868:      find(const key_type& __x)
-    21015:  869:      { return _M_h.find(__x); }
+        -:  868:      find(const key_type& __x)
+        -:  869:      { return _M_h.find(__x); }
         -:  870:
         -:  871:#if __cplusplus > 201703L
         -:  872:      template<typename _Kt>
@@ -977,8 +977,8 @@
         -:  976:       *  Lookup requires constant time.
         -:  977:       */
         -:  978:      mapped_type&
-    39017:  979:      operator[](const key_type& __k)
-    39017:  980:      { return _M_h[__k]; }
+    42043:  979:      operator[](const key_type& __k)
+    42043:  980:      { return _M_h[__k]; }
         -:  981:
         -:  982:      mapped_type&
         -:  983:      operator[](key_type&& __k)

@@ -367,8 +367,8 @@
         -:  366:    {
         -:  367:      _GLIBCXX14_CONSTEXPR
         -:  368:      bool
-    75641:  369:      operator()(const _Tp& __x, const _Tp& __y) const
-    75641:  370:      { return __x == __y; }
+    56465:  369:      operator()(const _Tp& __x, const _Tp& __y) const
+    56465:  370:      { return __x == __y; }
         -:  371:    };
         -:  372:
         -:  373:  /// One of the @link comparison_functors comparison functors@endlink.
